@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>¿Eres Aurora?</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+  <div class="heart-container" id="heartContainer"></div>
+
+  <div class="wrap">
+    <div class="card">
+      <h2 class="question">¿Eres Aurora?</h2>
+      <div class="poll">
+        <div class="options">
+          <button id="btnSi">Sí</button>
+          <button id="btnNo">No</button>
+        </div>
+        <p id="mensaje" class="mensaje"></p>
+      </div>
+    </div>
+
+    <div id="revelacion" class="revelacion">
+      <p class="frase">TE AMOOOOOOOOOOOOOO</p>
+      <p class="frase">Solo hago esto porque te amo demasiado!</p>
+      <p class="frase">Con esto todavía no puedo expresar todo lo que siento por ti</p>
+      <p class="copyright">© Carlos</p>
+      <p class="dedicatoria">De parte de Carlos</p>
+    </div>
+  </div>
+
+  <script>
+    const mensaje = document.getElementById('mensaje');
+    const revelacion = document.getElementById('revelacion');
+    const heartContainer = document.getElementById('heartContainer');
+    const btnSi = document.getElementById('btnSi');
+    const btnNo = document.getElementById('btnNo');
+
+    const colores = ["#ff2e63", "#ff5ea6", "#ff8fb7", "#ffb6d5", "#ffcadc"];
+    let intervalId;
+
+    function crearCorazon() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+
+      // Posición aleatoria
+      heart.style.left = Math.random() * 100 + 'vw';
+      // Tamaño más grande
+      const size = Math.random() * 30 + 20; // 20–50px
+      heart.style.width = size + 'px';
+      heart.style.height = size + 'px';
+
+      const color = colores[Math.floor(Math.random() * colores.length)];
+      heart.style.background = color;
+      heart.style.setProperty('--heart-color', color);
+
+      heart.style.animationDuration = (4 + Math.random() * 5) + 's';
+      heart.style.setProperty('--drift', (Math.random() * 60 - 30) + 'px');
+
+      heartContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 9000);
+    }
+
+    btnSi.addEventListener('click', () => {
+      mensaje.textContent = '';
+      revelacion.classList.add('visible');
+      intervalId = setInterval(crearCorazon, 200);
+    });
+
+    btnNo.addEventListener('click', () => {
+      mensaje.textContent = '¡Gracias!';
+      revelacion.classList.remove('visible');
+      clearInterval(intervalId);
+    });
+  </script>
+</body>
+</html>
+<link rel="stylesheet" href="estilos.css" />

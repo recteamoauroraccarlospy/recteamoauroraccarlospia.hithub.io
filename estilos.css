@@ -1,0 +1,181 @@
+:root {
+  --pink: #ff5ea6;
+  --rose: #ff2e63;
+  --deep: #8e0034;
+  --card-bg: rgba(255, 255, 255, 0.22);
+  --border: rgba(255, 255, 255, 0.45);
+  --shadow: 0 18px 45px rgba(161, 0, 58, 0.28);
+  --radius: 26px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  color: #2b0020;
+  background: radial-gradient(circle at 20% 20%, #ffd1e6, transparent 40%),
+              radial-gradient(circle at 80% 30%, #ffb2ca, transparent 45%),
+              linear-gradient(120deg, #ff9cc1, #ff6b9c, #ff9cc1);
+  background-size: 300% 300%;
+  animation: bgShift 12s ease-in-out infinite;
+  overflow-x: hidden;
+  position: relative;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50% }
+  50% { background-position: 100% 50% }
+  100% { background-position: 0% 50% }
+}
+
+.wrap {
+  display: grid;
+  place-items: center;
+  padding: 48px 16px 140px;
+  position: relative;
+  z-index: 2;
+  gap: 18px;
+}
+
+.card {
+  width: min(720px, 92vw);
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: clamp(20px, 4.5vw, 40px);
+  text-align: center;
+}
+
+.question {
+  font-size: clamp(28px, 5vw, 46px);
+  color: var(--deep);
+  letter-spacing: 0.3px;
+  margin: 0 0 8px;
+}
+
+.options {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.options button {
+  padding: 12px 26px;
+  font-size: 18px;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  background: var(--rose);
+  color: white;
+  box-shadow: 0 10px 20px rgba(255, 46, 99, 0.35);
+  transform: translateY(0);
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background 0.3s ease;
+}
+
+.options button:hover {
+  background: var(--pink);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 28px rgba(255, 94, 166, 0.38);
+}
+
+.mensaje {
+  min-height: 24px;
+  font-size: 20px;
+  margin-top: 14px;
+  font-weight: 700;
+}
+
+.revelacion {
+  width: min(780px, 94vw);
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  pointer-events: none;
+  transition: opacity 400ms ease, transform 450ms ease;
+  padding: 8px 0;
+}
+
+.revelacion.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+}
+
+.frase {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(28px, 4.5vw, 40px);
+  color: #5a082b;
+  margin: 10px 0 6px;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.35);
+}
+
+.frase2 {
+  font-family: "Dancing Script", cursive;
+  font-size: clamp(22px, 3.5vw, 30px);
+  color: #6d1839;
+  margin: 2px 0 14px;
+  opacity: 0.95;
+}
+
+.copyright {
+  font-size: 14px;
+  margin-top: 8px;
+  opacity: 0.8;
+}
+
+.dedicatoria {
+  font-size: 16px;
+  margin-top: 34px;
+  font-style: italic;
+}
+
+/* Corazones más grandes y brillantes */
+.heart-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.heart {
+  position: absolute;
+  top: -10px;
+  transform: rotate(45deg);
+  animation: caer linear forwards;
+  filter: drop-shadow(0 6px 12px rgba(255, 46, 99, 0.45)) brightness(1.2);
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--heart-color, red);
+  border-radius: 50%;
+}
+
+.heart::before { top: -50%; left: 0; }
+.heart::after  { top: 0; left: -50%; }
+
+@keyframes caer {
+  0% {
+    transform: translateX(0) translateY(-10px) rotate(45deg);
+    opacity: 1;
+  }
+  80% {
+    transform: translateX(var(--drift, 0)) translateY(100vh) rotate(45deg);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(calc(var(--drift, 0) * 1.5)) translateY(110vh) rotate(45deg);
+    opacity: 0;
+  }
+}
